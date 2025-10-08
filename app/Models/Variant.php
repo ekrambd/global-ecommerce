@@ -14,4 +14,9 @@ class Variant extends Model
         'variant_name',
         'status',
     ];
+
+    public function productvariants()
+    {
+    	return $this->hasMany(Productvariant::class);
+    }
 }

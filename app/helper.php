@@ -3,7 +3,7 @@
  use App\Models\Unit;
  use App\Models\Subcategory;
  use App\Models\Brand;
-
+ 
 function categories(){
 	$categories = Category::latest()->get();
 	return $categories;
@@ -28,4 +28,16 @@ function user()
 {
 	$user = auth()->user();
 	return $user;
+}
+
+function featuredCategoryIds()
+{
+	$categories = Category::whereHas('products')->where('status','Active')->where('is_featured',1)->pluck('id')->toArray();
+	return $categories;
+}
+
+function categorySlug($category)
+{
+	$slug = strtolower(str_replace(" ", "-", $category->category_name));
+	return $slug;
 }

@@ -61,18 +61,27 @@ class ProductController extends Controller
 
                 ->addColumn('action', function ($row) {
                     $editUrl = route('products.show', $row->id);
-
+                    $variantUrl = url('/add-product-variant/'.$row->id);
                     return '
+
+                        <a href="' . $variantUrl . '" 
+                           class="btn btn-success btn-sm action-button add-product-variant" >
+                            Add/Edit Variant
+                        </a>
+
+                        &nbsp;
+
                         <a href="' . $editUrl . '" 
                            class="btn btn-primary btn-sm action-button edit-product" 
                            data-id="' . $row->id . '">
-                            <i class="fa fa-edit"></i>
+                            Edit
                         </a>
                         &nbsp;
+
                         <button type="button" 
                            class="btn btn-danger btn-sm delete-product action-button" 
                            data-id="' . $row->id . '">
-                            <i class="fa fa-trash"></i>
+                            Delete
                         </button>
                     ';
                 })

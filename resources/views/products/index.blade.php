@@ -33,7 +33,7 @@
                             <tr>
                                 <th>Product Name</th>
                                 <th>Category</th>
-                                <th>Product Price</th>
+                                <th>Price (BDT)</th>
                                 <th>Stock</th>
                                 <th>Unit</th>
                                 <th>Status</th>
@@ -68,10 +68,10 @@
 
 		        columns: [
 		            {data: 'product_name', name: 'product_name'},
-		            {data: 'product_price', name: 'product_price'},
-                    {data: 'category', name: 'category'},
-                    {data: 'stock_qty', name: 'stock_qty'},
-                    {data: 'unit', name: 'unit'},
+                {data: 'category', name: 'category'},
+                {data: 'product_price', name: 'product_price'},
+                {data: 'stock_qty', name: 'stock_qty'},
+                {data: 'unit', name: 'unit'},
 		            {data: 'status', name: 'status'},
 		            {data: 'action', name: 'action', orderable: false, searchable: false},
 		        ]

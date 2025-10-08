@@ -11,3 +11,4 @@ Route::post('unit-status-update', [AjaxController::class, 'unitStatusUpdate']);
 Route::post('variant-status-update', [AjaxController::class, 'variantStatusUpdate']);
 Route::post('product-status-update', [AjaxController::class, 'productStatusUpdate']);
 Route::get('/get-subcategories/{id}', [AjaxController::class, 'getSubcategories']);
+Route::get('/delete-variant/{id}', [AjaxController::class, 'deleteVariant']);

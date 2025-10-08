@@ -44,12 +44,12 @@ class AccessController extends Controller
         }
     }
 
-    public function Logout()
+    public function adminLogout()
     {
     	try
     	{
     		Auth::logout();
-    		return redirect('/');
+    		return redirect('/admin/login');
     	}catch(Exception $e){
                   
                 $message = $e->getMessage();
