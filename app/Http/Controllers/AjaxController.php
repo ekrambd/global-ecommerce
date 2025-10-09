@@ -10,6 +10,9 @@ use App\Models\Unit;
 use App\Models\Variant;
 use App\Models\Product;
 use App\Models\Productvariant;
+use App\Models\Cart;
+use Session;
+session_start();
 
 class AjaxController extends Controller
 {
@@ -189,6 +192,61 @@ class AjaxController extends Controller
         }
     }
 
+    public function addToCart(Request $request)
+    {
+        try
+        {
+            $product = Product::find($request->element_id);
+            $variant = Productvariant::find($request->element_id);
+            $count = Cart::count();
+            $count+=1;
+            $cart_session_id = Session::get('cart_session_id');
+
+            if(!stockCheck($request)){
+                return response()->json(['status'=>false, 'message'=>'The product is sold out']);
+            }
+
+            if(empty($cart_session_id)){
+                $cart_session_id = Session::put('cart_session_id',rand(1000,9000).$count);
+            }
+
+            if($product){
+
+                $price = discount($product);
+
+            }else{
+                $price = $variant->variant_price == null?$product->product_price:$variant->variant_price;
+            }
+
+            $cart = Cart::where('product_id',$product->id)->where('cart_session_id',$cart_session_id)->first();
+
+
+            if($cart){
+                $qty = $cart->cart_qty+1;
+                $cart->cart_qty=$qty;
+                $cart->unit_total = round($price * $qty,2);
+                $cart->update();
+            }else{
+                
+                $cart = new Cart();
+                $cart->product_id = $request->use_for=='product'?$product->id:null;
+                $cart->cart_session_id = $cart_session_id;
+                $cart->variant_id = $request->use_for=='variant'?$variant->id:null;
+                $cart->cart_qty = 1;
+                $cart->unit_total = round($price * 1,2);
+                $cart->save();
+            }
+
+            return response()->json(['status'=>true, 'message'=>'Successfully the product has been added to cart']);
+
+        }catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'code' => $e->getCode(),
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 
 
 }

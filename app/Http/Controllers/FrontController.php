@@ -32,16 +32,23 @@ class FrontController extends Controller
 
 	    $topCategories = Category::where('is_top',1)->where('status','Active')->latest()->get();
 
-	    // $featuredCategories = Category::with(['products'=>function($query){
-	    // 	$query->where('status','Active');
-	    // }])->where('is_featured',1)->where('status','Active')->latest()->get(); 
-	    //return featuredCategoryIds();
-	    $featuredCategories = Category::whereIn('id',featuredCategoryIds())->get();
-	    $featuredCategoryIds = [5,7];
-	    $featuredProducts = Product::with('category')->whereIn('category_id',featuredCategoryIds())->where('status','Active')->latest()->get();
+	    $featuredCategories = Category::whereHas('products')
+	                   ->with(['products'=>function($query){
+	                   	    $query->where('status','Active');
+	                   }])
+	                   ->where('status','Active')
+	                   ->where('is_featured',1)
+	                   ->get();
 
-	    return $featuredProducts;
+	    $homeCategories = Category::whereHas('products')
+	                   ->with(['products'=>function($query){
+	                   	    $query->where('status','Active');
+	                   }])
+	                   ->where('status','Active')
+	                   ->where('is_homepage',1)
+	                   ->get();
+	    //return count($homeCategories);
 
-    	return view('layouts.front',compact('menuCategories','menuBrands','topCategories','featuredCategories','featuredProducts')); 
+    	return view('layouts.front',compact('menuCategories','menuBrands','topCategories','featuredCategories','homeCategories')); 
     }
 }

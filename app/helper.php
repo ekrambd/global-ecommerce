@@ -3,7 +3,9 @@
  use App\Models\Unit;
  use App\Models\Subcategory;
  use App\Models\Brand;
- 
+ use App\Models\Product;
+ use App\Models\Productvariant;
+
 function categories(){
 	$categories = Category::latest()->get();
 	return $categories;
@@ -40,4 +42,32 @@ function categorySlug($category)
 {
 	$slug = strtolower(str_replace(" ", "-", $category->category_name));
 	return $slug;
+}
+
+function stockCheck($request){
+	if($request->use_for == 'product'){
+		$product = Product::findorfail($request->element_id);
+		if($product->stock_qty > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}else{
+		if($request->use_for == 'variant'){
+			$variant = Productvariant::findorfail($request->element_id);
+			if($variant->stock_qty > 0){ 
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+}
+
+function discount($product)
+{
+	$originalPrice = $product->product_price;
+	$discountPercent = $product->discount;
+    $discountedPrice = $originalPrice - ($originalPrice * ($discountPercent / 100));
+    return round($discountedPrice, 2);
 }

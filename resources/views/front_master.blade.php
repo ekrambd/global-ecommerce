@@ -18,6 +18,8 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="front/assets/images/icons/favicon.png">
 
+    <link rel="stylesheet" href="{{asset('custom/toastr.css')}}">
+
     <!-- WebFont.js -->
     <script>
         WebFontConfig = {
@@ -206,7 +208,7 @@
                                 </div>
 
                                 <div class="cart-action">
-                                    <a href="cart.html" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
+                                    <a href="{{url('/carts')}}" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
                                     <a href="checkout.html" class="btn btn-primary  btn-rounded">Checkout</a>
                                 </div>
                             </div>
@@ -365,7 +367,7 @@
                                             <li><a href="error-404.html">Error 404</a></li>
                                             <li><a href="coming-soon.html">Coming Soon</a></li>
                                             <li><a href="wishlist.html">Wishlist</a></li>
-                                            <li><a href="cart.html">Cart</a></li>
+                                            <li><a href="{{url('/carts')}}">Cart</a></li>
                                             <li><a href="checkout.html">Checkout</a></li>
                                             <li><a href="my-account.html">My Account</a></li>
                                             <li><a href="compare.html">Compare</a></li>
@@ -490,7 +492,7 @@
                                 <h4 class="widget-title">My Account</h4>
                                 <ul class="widget-body">
                                     <li><a href="#">Track My Order</a></li>
-                                    <li><a href="cart.html">View Cart</a></li>
+                                    <li><a href="{{url('/carts')}}">View Cart</a></li>
                                     <li><a href="login.html">Sign In</a></li>
                                     <li><a href="#">Help</a></li>
                                     <li><a href="wishlist.html">My Wishlist</a></li>
@@ -621,7 +623,7 @@
             <p>Account</p>
         </a>
         <div class="cart-dropdown dir-up">
-            <a href="cart.html" class="sticky-link">
+            <a href="{{url('/carts')}}" class="sticky-link">
                 <i class="w-icon-cart"></i>
                 <p>Cart</p>
             </a>
@@ -676,7 +678,7 @@
                 </div>
 
                 <div class="cart-action">
-                    <a href="cart.html" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
+                    <a href="{{url('/carts')}}" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
                     <a href="checkout.html" class="btn btn-primary  btn-rounded">Checkout</a>
                 </div>
             </div>
@@ -870,7 +872,7 @@
                                 <li><a href="error-404.html">Error 404</a></li>
                                 <li><a href="coming-soon.html">Coming Soon</a></li>
                                 <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="cart.html">Cart</a></li>
+                                <li><a href="{{url('/carts')}}">Cart</a></li>
                                 <li><a href="checkout.html">Checkout</a></li>
                                 <li><a href="my-account.html">My Account</a></li>
                             </ul>
@@ -1368,7 +1370,7 @@
     <script src="front/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script src="front/assets/vendor/zoom/jquery.zoom.js"></script>
     <script src="front/assets/vendor/jquery.countdown/jquery.countdown.min.js"></script>
-    <script src="front/assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    {{-- <script src="front/assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> --}}
     <script src="front/assets/vendor/skrollr/skrollr.min.js"></script>
 
     <!-- Swiper JS -->
@@ -1376,6 +1378,21 @@
 
     <!-- Main JS -->
     <script src="front/assets/js/main.min.js"></script>
+
+    <script src="{{asset('custom/toastr.js')}}"></script>
+ 
+      @if(Session::has('messege'))
+        @toastr("{{ Session::get('messege') }}")
+      @endif
+
+    @stack('scripts')
+
+    <script>
+      $(function () {
+        var base_url = "{{url('/')}}";
+        localStorage.setItem('base_url', base_url);     
+      })
+    </script>
 </body>
 
 
