@@ -1422,6 +1422,8 @@
                                 class="btn-product-icon btn-compare btn-icon-left w-icon-compare"><span></span></a>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>

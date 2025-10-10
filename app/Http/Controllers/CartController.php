@@ -28,7 +28,6 @@ class CartController extends Controller
                 $qtyInput = $request->input('cart_qty_' . $cart->id);
 
                 if ($qtyInput && $qtyInput > 0) {
-                    // Get product price
                     if ($cart->productvariant_id) {
                         $price = $cart->productvariant->pricevariant_price;
                     } else {

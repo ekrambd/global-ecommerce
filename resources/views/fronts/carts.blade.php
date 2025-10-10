@@ -92,7 +92,7 @@
 
                             <div class="cart-action mb-6">
                                 <a href="#" class="btn btn-dark btn-rounded btn-icon-left btn-shopping mr-auto"><i class="w-icon-long-arrow-left"></i>Continue Shopping</a>
-                                <button type="submit" class="btn btn-rounded btn-default btn-clear" name="clear_cart" value="Clear Cart">Clear Cart</button> 
+                                <button type="button" class="btn btn-rounded btn-default btn-clear" name="clear_cart" value="Clear Cart">Clear Cart</button> 
                                 <button type="submit" class="btn btn-rounded btn-update" name="update_cart" value="Update Cart">Update Cart</button>
                             </div>
                         </form>
@@ -192,9 +192,9 @@
                                         <label>Total</label>
                                         <span class="ls-50 cart_total">{{$sum}} BDT</span>
                                     </div>
-                                    <a href="#"
-                                        class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout">
-                                        Proceed to checkout<i class="w-icon-long-arrow-right"></i></a>
+                                    <button type="button"
+                                        class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout checkout-process">
+                                        Proceed to checkout<i class="w-icon-long-arrow-right"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -205,6 +205,7 @@
         </main>
         <!-- End of Main -->
 @endsection
+
 
 @push('scripts')
 <script>
@@ -278,6 +279,30 @@
                             
             });
         }
+      });
+
+      $(document).on('click', '.checkout-process', function(e){
+        e.preventDefault();
+        $('#loginModal').modal('show');
+        // let redirectUrl;
+        // $.ajax({
+
+        //     url: "{{url('/check-page')}}",
+
+        //         type:"GET",
+        //         dataType:"json",
+        //         success:function(data) {
+
+        //         if(data.status == true){
+        //             redirectUrl = "{{url('/')}}/checkout";
+        //             window.location.href="redirectUrl";
+        //         }else{
+        //             $('.login-popup').popup('show');
+        //         }
+
+        //     },
+                            
+        // });
       });
 
 
