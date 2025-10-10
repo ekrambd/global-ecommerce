@@ -15,3 +15,5 @@ Route::get('/delete-variant/{id}', [AjaxController::class, 'deleteVariant']);
 
 //cart ajax requests
 Route::get('/add-to-cart', [AjaxController::class, 'addToCart']);
+Route::get('/cart-delete/{id}', [AjaxController::class, 'cartDelete']);
+Route::get('/cart-empty', [AjaxController::class, 'cartEmpty']);

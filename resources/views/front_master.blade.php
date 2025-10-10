@@ -2,7 +2,7 @@
 <html lang="en">
 
 
-<!-- Mirrored from portotheme.com/html/wolmart/demo1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Oct 2025 04:50:26 GMT -->
+<!-- Mirrored from portotheme.com/html/wolmart/{{url('/')}} by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Oct 2025 04:50:26 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="UTF-8">
@@ -54,6 +54,9 @@
     <!-- Default CSS -->
     <link rel="stylesheet" type="text/css" href="front/assets/css/demo1.min.css">
 
+    <!-- Default CSS -->
+    <link rel="stylesheet" type="text/css" href="front/assets/css/style.min.css">
+
 </head>
 
 <body class="home">
@@ -102,7 +105,7 @@
                     <div class="header-left mr-md-4">
                         <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle">
                         </a>
-                        <a href="demo1.html" class="logo ml-lg-0">
+                        <a href="{{url('/')}}" class="logo ml-lg-0">
                             <img src="front/assets/images/logo.png" alt="logo" width="144" height="45" />
                         </a>
                         <form method="get" action="#"
@@ -140,15 +143,15 @@
                             <i class="w-icon-heart"></i>
                             <span class="wishlist-label d-lg-show">Wishlist</span>
                         </a>
-                        <a class="compare label-down link d-xs-show" href="compare.html">
+                        <a class="compare label-down link d-xs-show d-none" href="compare.html">
                             <i class="w-icon-compare"></i>
                             <span class="compare-label d-lg-show">Compare</span>
                         </a>
                         <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
                             <div class="cart-overlay"></div>
-                            <a href="#" class="cart-toggle label-down link">
+                            <a href="{{url('/carts')}}" class="cart-toggle label-down link">
                                 <i class="w-icon-cart">
-                                    <span class="cart-count">2</span>
+                                    <span class="cart-count">{{$countCart??0}}</span>
                                 </i>
                                 <span class="cart-label">Cart</span>
                             </a>
@@ -223,6 +226,7 @@
                 <div class="container">
                     <div class="inner-wrap">
                         <div class="header-left">
+                           @if(Route::currentRouteName() == 'home')
                             <div class="dropdown category-dropdown has-border" data-visible="true">
                                 <a href="#" class="category-toggle text-dark" role="button" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="true" data-display="static"
@@ -233,6 +237,7 @@
 
                                 <div class="dropdown-box">
                                     <ul class="menu vertical-menu category-menu">
+                                    @if(isset($menuCategories))
                                     @foreach($menuCategories as $menuCategory)
                                      @if(count($menuCategory->subcategories) > 0)
                                         <li>
@@ -262,6 +267,7 @@
                                         </li>
                                      @endif
                                      @endforeach
+                                    @endif
                                         
                                         <li class="d-none">
                                             <a href="shop-banner-sidebar.html"
@@ -272,16 +278,71 @@
                                     </ul>
                                 </div>
                             </div>
+                           @else
+                            <div class="dropdown category-dropdown has-border" data-visible="true">
+                                <a href="#" class="category-toggle text-dark" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="true" data-display="static"
+                                    title="Browse Categories">
+                                    <i class="w-icon-category"></i>
+                                    <span>Browse Categories</span>
+                                </a>
+
+                                <div class="dropdown-box" style="display:none;">
+                                    <ul class="menu vertical-menu category-menu">
+                                    @if(isset($menuCategories))
+                                    @foreach($menuCategories as $menuCategory)
+                                     @if(count($menuCategory->subcategories) > 0)
+                                        <li>
+
+                                            <a href="{{url('/category-details/'.$menuCategory->id)}}">
+                                                <i class="w-icon-list"></i>{{$menuCategory->category_name}}
+                                            </a>
+                                            <ul class="megamenu">
+                                             @foreach($menuCategory->subcategories as $subcatgory)
+                                                <li>
+                                                    <h4 class="menu-title">{{$subcatgory->subcategory_name}}</h4>
+                                                    <hr class="divider">
+                                                    <ul>
+                                                      @foreach($subcatgory->products as $product)
+                                                        <li><a href="{{url('/product-details/'.$product->id)}}">{{$product->product_name}}</a>
+                                                     @endforeach
+                                                    </ul>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                      @else
+                                        <li>
+                                            <a href="{{url('/category-details/'.$menuCategory->id)}}">
+                                                <i class="w-icon-list"></i>{{$menuCategory->category_name}}
+                                            </a>
+                                        </li>
+                                     @endif
+                                     @endforeach
+                                    @endif
+                                        
+                                        <li class="d-none">
+                                            <a href="shop-banner-sidebar.html"
+                                                class="font-weight-bold text-primary text-uppercase ls-25">
+                                                View All Categories<i class="w-icon-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                           @endif
                             <nav class="main-nav">
                                 <ul class="menu active-underline">
                                     <li class="active">
-                                        <a href="demo1.html">Home</a>
+                                        <a href="{{url('/')}}">Home</a>
                                     </li>
                                     <li>
                                         <a href="#">Shop</a>
 
                                         <!-- Start of Megamenu -->
                                         <ul class="megamenu">
+                                        @if(isset($menuBrands))
                                           @foreach($menuBrands as $brand)
                                             <li>
                                                 <h4 class="menu-title">{{$brand->brand_name}}</h4>
@@ -292,6 +353,7 @@
                                                 </ul>
                                             </li>
                                           @endforeach
+                                        @endif
                                         </ul>
                                         <!-- End of Megamenu -->
                                     </li>
@@ -409,7 +471,9 @@
 
         <!-- Start of Main-->
         <main class="main">
+           @if(Route::currentRouteName() == 'home')
             <x-slider/>
+           @endif
             <!-- End of .intro-section -->
 
             @yield('front_content')
@@ -453,7 +517,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-sm-6">
                             <div class="widget widget-about">
-                                <a href="demo1.html" class="logo-footer">
+                                <a href="{{url('/')}}" class="logo-footer">
                                     <img src="front/assets/images/logo_footer.png" alt="logo-footer" width="144"
                                         height="45" />
                                 </a>
@@ -610,7 +674,7 @@
 
     <!-- Start of Sticky Footer -->
     <div class="sticky-footer sticky-content fix-bottom">
-        <a href="demo1.html" class="sticky-link active">
+        <a href="{{url('/')}}" class="sticky-link active">
             <i class="w-icon-home"></i>
             <p>Home</p>
         </a>
@@ -739,7 +803,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="main-menu">
                     <ul class="mobile-menu">
-                        <li><a href="demo1.html">Home</a></li>
+                        <li><a href="{{url('/')}}">Home</a></li>
                         <li>
                             <a href="shop-banner-sidebar.html">Shop</a>
                             <ul>
@@ -1370,11 +1434,12 @@
     <script src="front/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script src="front/assets/vendor/zoom/jquery.zoom.js"></script>
     <script src="front/assets/vendor/jquery.countdown/jquery.countdown.min.js"></script>
-    {{-- <script src="front/assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> --}}
+    <script src="front/assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
     <script src="front/assets/vendor/skrollr/skrollr.min.js"></script>
 
     <!-- Swiper JS -->
     <script src="front/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
 
     <!-- Main JS -->
     <script src="front/assets/js/main.min.js"></script>
@@ -1387,6 +1452,23 @@
 
     @stack('scripts')
 
+    @if(Route::currentRouteName() != 'home')
+     <script>
+       $(document).ready(function(){
+          $('.category-toggle, .has-submenu, .dropdown-box').hover(
+            function() {
+                $('.dropdown-box').stop(true, true).fadeIn(200);
+            },
+            function() {
+                $('.dropdown-box').stop(true, true).fadeOut(200);
+            }
+        );
+          
+
+       }); 
+     </script>
+    @endif
+
     <script>
       $(function () {
         var base_url = "{{url('/')}}";
@@ -1396,5 +1478,5 @@
 </body>
 
 
-<!-- Mirrored from portotheme.com/html/wolmart/demo1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Oct 2025 04:52:13 GMT -->
+<!-- Mirrored from portotheme.com/html/wolmart/{{url('/')}} by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Oct 2025 04:52:13 GMT -->
 </html>

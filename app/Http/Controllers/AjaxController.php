@@ -231,13 +231,13 @@ class AjaxController extends Controller
                 $cart = new Cart();
                 $cart->product_id = $request->use_for=='product'?$product->id:null;
                 $cart->cart_session_id = $cart_session_id;
-                $cart->variant_id = $request->use_for=='variant'?$variant->id:null;
+                $cart->productvariant_id = $request->use_for=='variant'?$variant->id:null;
                 $cart->cart_qty = 1;
                 $cart->unit_total = round($price * 1,2);
                 $cart->save();
             }
-
-            return response()->json(['status'=>true, 'message'=>'Successfully the product has been added to cart']);
+            $countCart = Cart::where('cart_session_id',$cart_session_id)->count();
+            return response()->json(['status'=>true, 'cart_count'=>$countCart, 'message'=>'Successfully the product has been added to cart']);
 
         }catch (Exception $e) {
             return response()->json([
@@ -248,5 +248,36 @@ class AjaxController extends Controller
         }
     }
 
+    public function cartEmpty()
+    {
+        try
+        {
+            Cart::truncate();
+            return response()->json(['status'=>true, 'message'=>"Cart empty done"]);
+        }catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'code' => $e->getCode(),
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function cartDelete($id)
+    {
+        try
+        {   
+            $cart = Cart::findorfail($id);
+            $cart->delete();
+            $count = Cart::where('cart_session_id',Session::get('cart_session_id'))->count();
+            return response()->json(['status'=>true, 'cart_count'=>$count, 'message'=>'Successfully the cart has been deleted']);
+        }catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'code' => $e->getCode(),
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 
 }

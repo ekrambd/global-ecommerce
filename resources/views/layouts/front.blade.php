@@ -1352,6 +1352,7 @@
 
                         toastr.error(data.message);
                     }else{
+                        $('.cart-count').text(data.cart_count);
                         toastr.success(data.message);
                     }
             },

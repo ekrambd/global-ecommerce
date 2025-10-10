@@ -10,6 +10,7 @@ use App\Http\Controllers\VariantController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\AjaxController;
 
 
@@ -39,4 +40,7 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
 	Route::resource('products', ProductController::class);
 	Route::get('/add-product-variant/{id}', [AjaxController::class, 'addProductVariant']);
 	Route::post('save-product-variant', [AjaxController::class, 'saveProductVariant']);
+
+	//sliders
+	Route::resource('sliders', SliderController::class);
 });

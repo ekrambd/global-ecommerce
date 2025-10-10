@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('cart_session_id');
             $table->integer('product_id')->nullable();
-            $table->integer('variant_id')->nullable();
+            $table->integer('productvariant_id')->nullable();
             $table->integer('cart_qty');
             $table->string('unit_total');
             $table->timestamps();

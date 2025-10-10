@@ -277,6 +277,32 @@
              
             </ul>
           </li>
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Sliders
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('sliders.create')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Slider</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('sliders.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Slider</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
           
 
           <li class="nav-item">
