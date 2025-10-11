@@ -238,7 +238,7 @@ class AjaxController extends Controller
                 $cart->product_id = $request->use_for=='product'?$product->id:null;
                 $cart->cart_session_id = $cart_session_id;
                 $cart->productvariant_id = $request->use_for=='variant'?$variant->id:null;
-                $cart->productvariant_ids = json_encode($request->productvariant_ids);
+                $cart->productvariant_ids = $request->has('productvariant_ids')?json_encode($request->productvariant_ids):NULL;
                 $cart->cart_qty = $request->has('qty')?$request->qty:1;
                 $cart->unit_total = round($price * $qty,2);
                 $cart->save();

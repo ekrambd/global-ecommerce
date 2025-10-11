@@ -65,6 +65,7 @@ class CheckoutController extends Controller
     		foreach($carts as $cart){
     			$order = new Order();
     			$order->orderdetail_id = $detail->id;
+                $order->variants = $cart->productvariant_ids;
     			$order->product_id = $cart->product_id;
     			$order->price = discount($cart->product);
     			$order->qty = $cart->cart_qty;

@@ -193,7 +193,7 @@
                                         <span class="ls-50 cart_total">{{$sum}} BDT</span>
                                     </div>
                                     @if(Auth::check())
-                                     <a href="" class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout">Proceed to checkout</a>
+                                     <a href="{{url('/checkout')}}" class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout">Proceed to checkout</a>
                                     @else
                                     {{-- <a href="{{url('/login-register')}}" class="d-lg-show login sign-in"><i
                                 class="w-icon-account"></i>Sign In</a> --}}

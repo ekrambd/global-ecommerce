@@ -12,7 +12,7 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\AjaxController;
-
+use App\Http\Controllers\OrderController;
 
 Route::get('/admin/login', [IndexController::class, 'loginPage']);
 
@@ -43,4 +43,11 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
 
 	//sliders
 	Route::resource('sliders', SliderController::class);
+
+	//orders
+
+	Route::get('/order-lists', [OrderController::class, 'orderLists']);
+
+	Route::get('/show-order/{id}', [OrderController::class, 'showOrder']);
+
 });

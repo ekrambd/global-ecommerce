@@ -59,4 +59,11 @@ class Product extends Model
     {
         return $this->hasOne(Whishlist::class);
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
+
+

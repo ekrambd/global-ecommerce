@@ -4,6 +4,7 @@
  use App\Models\Subcategory;
  use App\Models\Brand;
  use App\Models\Product;
+ use App\Models\Variant;
  use App\Models\Productvariant;
  use App\Models\Paymentmethod;
 
@@ -77,4 +78,17 @@ function paymentmethods()
 {
 	$data = Paymentmethod::where('status','Active')->get();
 	return $data;
+}
+
+function variantNames($variants)
+{
+	//$values = Productvariant::whereIN('id',json_decode($variants))->pluck('variant_value')->toArray();
+	$values = Productvariant::whereIN('id',json_decode($variants))->get();
+	// $data = Variant::with(['productvariants' => function ($query) use($values) {
+		
+	// 		        $query->whereIN('id',$values);
+			    
+	// 		    }])->get();
+	return $values;
+	//return implode(",",$data);
 }
