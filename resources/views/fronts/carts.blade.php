@@ -6,9 +6,9 @@
             <nav class="breadcrumb-nav">
                 <div class="container">
                     <ul class="breadcrumb shop-breadcrumb bb-no">
-                        <li class="active"><a href="cart.html">Shopping Cart</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="order.html">Order Complete</a></li>
+                        <li class="active"><a href="{{url('/carts')}}">Shopping Cart</a></li>
+                        <li><a href="{{url('/checkout')}}">Checkout</a></li>
+                        <li><a href="#">Order Complete</a></li>
                     </ul>
                 </div>
             </nav>
@@ -52,7 +52,7 @@
                                             </div>
                                         </td>
                                         <td class="product-name">
-                                            <a href="product-default.html">
+                                            <a href="{{url('/product-details/'.$cart->product->id)}}">
                                                 {{$cart->product->product_name}} @if($cart->productvariant != null)( {{$cart->productvariant->variant_value}} )@endif
                                             </a>
                                         </td>
@@ -192,9 +192,15 @@
                                         <label>Total</label>
                                         <span class="ls-50 cart_total">{{$sum}} BDT</span>
                                     </div>
-                                    <button type="button"
-                                        class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout checkout-process">
-                                        Proceed to checkout<i class="w-icon-long-arrow-right"></i></button>
+                                    @if(Auth::check())
+                                     <a href="" class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout">Proceed to checkout</a>
+                                    @else
+                                    {{-- <a href="{{url('/login-register')}}" class="d-lg-show login sign-in"><i
+                                class="w-icon-account"></i>Sign In</a> --}}
+                                    <a href="{{url('/login-register')}}"
+                                        class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout d-lg-show login sign-in checkout-process">
+                                        Proceed to checkout<i class="w-icon-long-arrow-right"></i></a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -283,7 +289,9 @@
 
       $(document).on('click', '.checkout-process', function(e){
         e.preventDefault();
-        $('#loginModal').modal('show');
+        let put = "{{Session::put('page','checkout')}}";
+        let get = "{{Session::get('page')}}";
+        console.log(get);
         // let redirectUrl;
         // $.ajax({
 

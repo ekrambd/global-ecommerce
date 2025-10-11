@@ -715,13 +715,13 @@
                               @foreach($topCategories as $category)
                                 <div
                                     class="swiper-slide category category-classic category-absolute overlay-zoom br-xs">
-                                    <a href="{{url('/category-details/'.$category->id)}}" class="category-media">
+                                    <a href="{{url('/product-lists?category_id='.$category->id)}}" class="category-media">
                                         <img src="{{URL::to($category->image)}}" alt="Category"
                                             width="130" height="130">
                                     </a>
                                     <div class="category-content">
                                         <h2 class="category-name" style="color: dodgerblue;">{{$category->category_name}}</h2>
-                                        <a href="{{url('/category-details/'.$category->id)}}"
+                                        <a href="{{url('/product-lists?category_id='.$category->id)}}"
                                             class="btn btn-primary btn-link btn-underline">Shop
                                             Now</a>
                                     </div>
@@ -771,7 +771,7 @@
                             <div class="product-wrap">
                                 <div class="product text-center">
                                     <figure class="product-media">
-                                        <a href="product-default.html">
+                                        <a href="{{url('/product-details/'.$product->id)}}">
                                             <img src="{{URL::to($product->image)}}" alt="Product"
                                                 width="300" height="338" />
                                             <img src="{{URL::to($product->image)}}" alt="Product"
@@ -780,8 +780,8 @@
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart add-to-cart"
                                                 title="Add to cart" data-id="{{$product->id}}"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart add-wishlist"
+                                                title="Add to wishlist" data-id="{{$product->id}}"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search d-none"
                                                 title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare d-none"
@@ -827,8 +827,8 @@
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart add-to-cart"
                                                 title="Add to cart" data-id="{{$product->id}}"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart add-wishlist"
+                                                title="Add to wishlist" data-id="{{$product->id}}"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search"
                                                 title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare"
@@ -861,8 +861,8 @@
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart add-to-cart"
                                                 title="Add to cart" data-id="{{$product->id}}"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart add-wishlist"
+                                                title="Add to wishlist" data-id="{{$product->id}}"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search"
                                                 title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare"
@@ -901,8 +901,8 @@
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart add-to-cart"
                                                 title="Add to cart" data-id="{{$product->id}}"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart add-wishlist"
+                                                title="Add to wishlist" data-id="{{$product->id}}"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search"
                                                 title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare"
@@ -935,8 +935,8 @@
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart add-to-cart"
                                                 title="Add to cart" data-id="{{$product->id}}"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart add-wishlist"
+                                                title="Add to wishlist" data-id="{{$product->id}}"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search"
                                                 title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare"
@@ -969,8 +969,8 @@
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart add-to-cart"
                                                 title="Add to cart" data-id="{{$product->id}}"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart add-wishlist"
+                                                title="Add to wishlist" data-id="{{$product->id}}"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search"
                                                 title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare"
@@ -1009,8 +1009,8 @@
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart add-to-cart"
                                                 title="Add to cart" data-id="{{$product->id}}"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart add-wishlist"
+                                                title="Add to wishlist" data-id="{{$product->id}}"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search"
                                                 title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare"
@@ -1043,8 +1043,8 @@
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart add-to-cart"
                                                 title="Add to cart" data-id="{{$product->id}}"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart add-wishlist"
+                                                title="Add to wishlist" data-id="{{$product->id}}"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search"
                                                 title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare"
@@ -1079,8 +1079,8 @@
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart add-to-cart"
                                                 title="Add to cart" data-id="{{$product->id}}"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart add-wishlist"
+                                                title="Add to wishlist" data-id="{{$product->id}}"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search"
                                                 title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare"
@@ -1112,8 +1112,8 @@
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart add-to-cart"
                                                 title="Add to cart" data-id="{{$product->id}}"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart add-wishlist"
+                                                title="Add to wishlist" data-id="{{$product->id}}"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search"
                                                 title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare"
@@ -1146,8 +1146,8 @@
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart add-to-cart"
                                                 title="Add to cart" data-id="{{$product->id}}"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart add-wishlist"
+                                                title="Add to wishlist" data-id="{{$product->id}}"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search"
                                                 title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare"
@@ -1213,7 +1213,7 @@
                 <div class="product-wrapper-1 appear-animate mb-5">
                     <div class="title-link-wrapper pb-1 mb-4">
                         <h2 class="title ls-normal mb-0">{{$category->category_name}}</h2>
-                        <a href="shop-boxed-banner.html" class="font-size-normal font-weight-bold ls-25 mb-0">More
+                        <a href="{{url('/product-lists')}}" class="font-size-normal font-weight-bold ls-25 mb-0">More
                             Products<i class="w-icon-long-arrow-right"></i></a>
                     </div>
                     <div class="row">
@@ -1238,7 +1238,7 @@
                             <div class="product-wrap">
                                 <div class="product text-center">
                                     <figure class="product-media">
-                                        <a href="product-default.html">
+                                        <a href="{{url('/product-details/'.$product->id)}}">
                                             <img src="{{URL::to($product->image)}}" alt="Product"
                                                 width="300" height="338" />
                                             <img src="{{URL::to($product->image)}}" alt="Product"
@@ -1247,8 +1247,8 @@
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart add-to-cart"
                                                 title="Add to cart" data-id="{{$product->id}}"></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                title="Add to wishlist"></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart add-wishlist"
+                                                title="Add to wishlist" data-id="{{$product->id}}"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search d-none"
                                                 title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare d-none"
@@ -1308,13 +1308,13 @@
                         <div class="swiper-slide product-wrap mb-0">
                             <div class="product text-center product-absolute">
                                 <figure class="product-media">
-                                    <a href="{{url('/brand-details'.$brand->id)}}">
+                                    <a href="{{url('/product-lists?brand_id='.$brand->id)}}">
                                         <img src="{{$brand->image}}" alt="Category image"
                                             width="130" height="146" style="background-color: #fff" />
                                     </a>
                                 </figure>
                                 <h4 class="product-name">
-                                    <a href="{{url('/brand-details'.$brand->id)}}">{{$brand->brand_name}}</a>
+                                    <a href="{{url('/product-lists?brand_id='.$brand->id)}}">{{$brand->brand_name}}</a>
                                 </h4>
                             </div>
                         </div>
@@ -1359,6 +1359,35 @@
                                 
          });
       });
+
+      $(document).on('click', '.add-wishlist', function(e){
+         e.preventDefault();
+         product_id = $(this).data('id');
+         $.ajax({
+
+            url: "{{url('/add-wishlist')}}/"+product_id,
+
+                 type:"GET",
+                 dataType:"json",
+                 success:function(data) {
+                    toastr.options = {
+                        "closeButton": true,
+                        "progressBar": true,
+                        "positionClass": "toast-bottom-left",
+                        "timeOut": "3000"
+                    };
+                    if(data.status == false){
+
+                        toastr.error(data.message);
+                    }else{
+                        //$('.cart-count').text(data.cart_count);
+                        toastr.success(data.message);
+                    }
+            },
+                                
+         });
+      });
+
    });  
  </script>
 @endpush

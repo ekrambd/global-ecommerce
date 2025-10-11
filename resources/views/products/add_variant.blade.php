@@ -43,7 +43,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Value</th>
-                                                    <th>Price</th>
+                                                    {{-- <th>Price</th> --}}
                                                     <th>Stock Qty</th>
                                                     <th>Image</th>
                                                     <th>Action</th>
@@ -55,8 +55,8 @@
                                                         <td><input type="text" class="form-control"
                                                                    name="variant_values[{{ $variant->id }}][]"
                                                                    placeholder="Value"></td>
-                                                        <td><input type="text" class="form-control"
-                                                                   name="variant_prices[{{ $variant->id }}][]"
+                                                        {{-- <td><input type="text" class="form-control"
+                                                                   name="variant_prices[{{ $variant->id }}][]" --}}
                                                                    placeholder="Price"></td>
                                                         <td><input type="text" class="form-control"
                                                                    name="stock_qtys[{{ $variant->id }}][]"
@@ -72,9 +72,9 @@
                                                             <td><input type="text" class="form-control"
                                                                        name="variant_values[{{ $variant->id }}][]"
                                                                        value="{{ $pv->variant_value }}"></td>
-                                                            <td><input type="text" class="form-control"
+                                                            {{-- <td><input type="text" class="form-control"
                                                                        name="variant_prices[{{ $variant->id }}][]"
-                                                                       value="{{ $pv->variant_price }}"></td>
+                                                                       value="{{ $pv->variant_price }}"></td> --}}
                                                             <td><input type="text" class="form-control"
                                                                        name="stock_qtys[{{ $variant->id }}][]"
                                                                        value="{{ $pv->stock_qty }}"></td>
@@ -122,7 +122,7 @@ $(document).ready(function(){
         let html = `
         <tr>
             <td><input type="text" class="form-control" name="variant_values[${id}][]" placeholder="Value"></td>
-            <td><input type="text" class="form-control" name="variant_prices[${id}][]" placeholder="Price"></td>
+            <td class="d-none"><input type="text" class="form-control" name="variant_prices[${id}][]" placeholder="Price"></td>
             <td><input type="text" class="form-control" name="stock_qtys[${id}][]" placeholder="Stock Qty"></td>
             <td><input type="file" name="images[${id}][]"></td>
             <td><button type="button" class="btn btn-danger btn-sm remove-variant"><i class="fa fa-trash"></i></button></td>

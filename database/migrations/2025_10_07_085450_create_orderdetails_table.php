@@ -15,17 +15,18 @@ return new class extends Migration
     {
         Schema::create('orderdetails', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id');
             $table->integer('user_id');
             $table->integer('paymentmethod_id');
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->string('zip_code')->nullable();
             $table->text('full_address');
             $table->string('screen_shot')->nullable();
             $table->string('sub_total');
             $table->string('delivery_charge')->default('0')->nullable();
             $table->string('vat_tax')->default('0')->nullable();
+            $table->string('total');
             $table->date('date');
             $table->string('time');
             $table->string('timestamp');

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Cart;
+use App\Models\Whishlist;
 use App\Models\Category;
 use App\Models\Brand;
 use Blade;
@@ -11,6 +12,8 @@ use Session;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use View;
+use Auth;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -36,6 +39,18 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $countCart = Cart::where('cart_session_id', Session::get('cart_session_id'))->count();
             $view->with('countCart', $countCart);
+        });
+
+        View::composer('*', function ($view) {
+            $query = Whishlist::query();
+
+            if (Auth::check()) {
+                $query->where('user_id', Auth::id());
+            }
+
+            $countWhishlist = $query->count();
+
+            $view->with('countWhishlist', $countWhishlist);
         });
 
         View::composer('*', function ($view) {

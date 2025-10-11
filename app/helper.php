@@ -5,6 +5,7 @@
  use App\Models\Brand;
  use App\Models\Product;
  use App\Models\Productvariant;
+ use App\Models\Paymentmethod;
 
 function categories(){
 	$categories = Category::latest()->get();
@@ -70,4 +71,10 @@ function discount($product)
 	$discountPercent = $product->discount;
     $discountedPrice = $originalPrice - ($originalPrice * ($discountPercent / 100));
     return round($discountedPrice, 2);
+}
+
+function paymentmethods()
+{
+	$data = Paymentmethod::where('status','Active')->get();
+	return $data;
 }

@@ -13,7 +13,15 @@ Route::post('product-status-update', [AjaxController::class, 'productStatusUpdat
 Route::get('/get-subcategories/{id}', [AjaxController::class, 'getSubcategories']);
 Route::get('/delete-variant/{id}', [AjaxController::class, 'deleteVariant']);
 
+
 //cart ajax requests
 Route::get('/add-to-cart', [AjaxController::class, 'addToCart']);
 Route::get('/cart-delete/{id}', [AjaxController::class, 'cartDelete']);
 Route::get('/cart-empty', [AjaxController::class, 'cartEmpty']);
+
+//product ajax requests
+Route::get('/product-variant-details/{id}', [AjaxController::class, 'productVariantDetails']);
+
+//wishlist ajax requests
+Route::get('/add-wishlist/{id}', [AjaxController::class, 'addWishlist']);
+Route::get('/remove-wishlist/{id}', [AjaxController::class, 'removeWishlist']);

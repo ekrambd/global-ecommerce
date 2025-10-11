@@ -11,8 +11,10 @@ use App\Models\Variant;
 use App\Models\Product;
 use App\Models\Productvariant;
 use App\Models\Cart;
+use App\Models\Whishlist;
 use Session;
 session_start();
+use Auth;
 
 class AjaxController extends Controller
 {
@@ -195,14 +197,16 @@ class AjaxController extends Controller
     public function addToCart(Request $request)
     {
         try
-        {
+        {  
+            //return response()->json($request->all());
             $product = Product::find($request->element_id);
+
             $variant = Productvariant::find($request->element_id);
             $count = Cart::count();
             $count+=1;
             $cart_session_id = Session::get('cart_session_id');
 
-            if(!stockCheck($request)){
+            if(!stockCheck($request)){ 
                 return response()->json(['status'=>false, 'message'=>'The product is sold out']);
             }
 
@@ -218,22 +222,25 @@ class AjaxController extends Controller
                 $price = $variant->variant_price == null?$product->product_price:$variant->variant_price;
             }
 
+            //return response()->json($product);
+
             $cart = Cart::where('product_id',$product->id)->where('cart_session_id',$cart_session_id)->first();
 
 
             if($cart){
-                $qty = $cart->cart_qty+1;
+                $qty = $request->has('qty')?$request->qty+1:$cart->cart_qty+1;
                 $cart->cart_qty=$qty;
                 $cart->unit_total = round($price * $qty,2);
                 $cart->update();
             }else{
-                
+                $qty = $request->has('qty')?$request->qty:1;
                 $cart = new Cart();
                 $cart->product_id = $request->use_for=='product'?$product->id:null;
                 $cart->cart_session_id = $cart_session_id;
                 $cart->productvariant_id = $request->use_for=='variant'?$variant->id:null;
-                $cart->cart_qty = 1;
-                $cart->unit_total = round($price * 1,2);
+                $cart->productvariant_ids = json_encode($request->productvariant_ids);
+                $cart->cart_qty = $request->has('qty')?$request->qty:1;
+                $cart->unit_total = round($price * $qty,2);
                 $cart->save();
             }
             $countCart = Cart::where('cart_session_id',$cart_session_id)->count();
@@ -272,6 +279,65 @@ class AjaxController extends Controller
             $count = Cart::where('cart_session_id',Session::get('cart_session_id'))->count();
             return response()->json(['status'=>true, 'cart_count'=>$count, 'message'=>'Successfully the cart has been deleted']);
         }catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'code' => $e->getCode(),
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function productVariantDetails($id)
+    {
+        try
+        {
+            $variant = Productvariant::findorfail($id);
+            return response()->json(['status'=>$variant->image == NUll?false:true, 'variant'=>$variant]);
+        }catch(Exception $e) {
+            return response()->json([
+                'status' => false,
+                'code' => $e->getCode(),
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function addWishlist($id)
+    {
+        try
+        {   
+            $product = Product::findorfail($id);
+            if(Auth::check()){
+                $count = Whishlist::where('user_id',user()->id)->where('product_id',$product->id)->count();
+                if($count > 0){
+                    return response()->json(['status'=>false, 'message'=>'The product already in wishlist']);
+                }
+                $list = new Whishlist();
+                $list->user_id = user()->id;
+                $list->product_id = $product->id;
+                $list->save();
+                return response()->json(['status'=>true, 'message'=>'Successfully whishlisted']);
+            }
+
+            return response()->json(['status'=>false, 'message'=>'Please Logged In First']);
+
+        }catch(Exception $e) {
+            return response()->json([
+                'status' => false,
+                'code' => $e->getCode(),
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function removeWishlist($id)
+    {
+        try
+        {
+            $wishlist = Whishlist::findorfail($id);
+            $wishlist->delete();
+            return response()->json(['status'=>true, 'message'=>'Successfully the wishlist has been deleted']);
+        }catch(Exception $e) {
             return response()->json([
                 'status' => false,
                 'code' => $e->getCode(),

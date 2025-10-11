@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Wolmart - Marketplace HTML5 Template</title>
 
@@ -16,7 +17,7 @@
     <meta name="author" content="D-THEMES">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="front/assets/images/icons/favicon.png">
+    <link rel="icon" type="image/png" href="{{asset('front/assets/images/icons/favicon.png')}}">
 
     <link rel="stylesheet" href="{{asset('custom/toastr.css')}}">
 
@@ -33,29 +34,29 @@
         })(document);
     </script>
 
-    <link rel="preload" href="front/assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font" type="font/woff2"
+    <link rel="preload" href="{{asset('front/assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2')}}" as="font" type="font/woff2"
         crossorigin="anonymous">
-    <link rel="preload" href="front/assets/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font" type="font/woff2"
+    <link rel="preload" href="{{asset('front/assets/vendor/fontawesome-free/webfonts/fa-solid-900.woff2')}}" as="font" type="font/woff2"
         crossorigin="anonymous">
-    <link rel="preload" href="front/assets/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" as="font" type="font/woff2"
+    <link rel="preload" href="{{asset('front/assets/vendor/fontawesome-free/webfonts/fa-brands-400.woff2')}}" as="font" type="font/woff2"
         crossorigin="anonymous">
-    <link rel="preload" href="front/assets/fonts/wolmart87d5.woff?png09e" as="font" type="font/woff" crossorigin="anonymous">
+    <link rel="preload" href="{{asset('front/assets/fonts/wolmart87d5.woff?png09e')}}" as="font" type="font/woff" crossorigin="anonymous">
 
     <!-- Vendor CSS -->
-    <link rel="stylesheet" type="text/css" href="front/assets/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('front/assets/vendor/fontawesome-free/css/all.min.css')}}">
 
     <!-- Plugins CSS -->
     <!-- <link rel="stylesheet" href="front/assets/vendor/swiper/swiper-bundle.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="front/assets/vendor/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="front/assets/vendor/magnific-popup/magnific-popup.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('front/assets/vendor/animate/animate.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('front/assets/vendor/magnific-popup/magnific-popup.min.css')}}">
     <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="front/assets/vendor/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{{asset('front/assets/vendor/swiper/swiper-bundle.min.css')}}">
 
     <!-- Default CSS -->
-    <link rel="stylesheet" type="text/css" href="front/assets/css/demo1.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('front/assets/css/demo1.min.css')}}">
 
     <!-- Default CSS -->
-    <link rel="stylesheet" type="text/css" href="front/assets/css/style.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('front/assets/css/style.min.css')}}">
 
 </head>
 
@@ -76,11 +77,11 @@
                         <!-- End of DropDown Menu -->
 
                         <div class="dropdown">
-                            <a href="#language"><img src="front/assets/images/flags/eng.png" alt="ENG Flag" width="14"
+                            <a href="#language"><img src="{{asset('front/assets/images/flags/eng.png')}}" alt="ENG Flag" width="14"
                                     height="8" class="dropdown-image" /> ENG</a>
                             <div class="dropdown-box">
                                 <a href="#ENG">
-                                    <img src="front/assets/images/flags/eng.png" alt="ENG Flag" width="14" height="8"
+                                    <img src="{{asset('front/assets/images/flags/eng.png')}}" alt="ENG Flag" width="14" height="8"
                                         class="dropdown-image" />
                                     ENG
                                 </a>
@@ -90,11 +91,21 @@
                         <span class="divider d-lg-show"></span>
                         <a href="blog.html" class="d-lg-show">Blog</a>
                         <a href="contact-us.html" class="d-lg-show">Contact Us</a>
-                        <a href="my-account.html" class="d-lg-show">My Account</a>
-                        <a href="front/assets/ajax/login.html" class="d-lg-show login sign-in"><i
+                        @if(Auth::check())
+                         {{-- <a href="#" class="d-lg-show">My Account</a> --}}
+
+                         <a href="{{'/user-logout'}}" class="d-lg-show">{{Auth::user()->name}} ( Logout )</a>
+
+                        @else
+                        {{-- <a href="front/assets/ajax/login.html" class="d-lg-show login sign-in"><i
+                                class="w-icon-account"></i>Sign In</a> --}}
+
+                        <a href="{{url('/login-register')}}" class="d-lg-show login sign-in"><i
                                 class="w-icon-account"></i>Sign In</a>
                         <span class="delimiter d-lg-show">/</span>
-                        <a href="front/assets/ajax/login.html" class="ml-0 d-lg-show login register">Register</a>
+                        <a href="{{url('/login-register')}}" class="ml-0 d-lg-show login register">Register</a>
+                        @endif
+                        
                     </div>
                 </div>
             </div>
@@ -106,25 +117,19 @@
                         <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle">
                         </a>
                         <a href="{{url('/')}}" class="logo ml-lg-0">
-                            <img src="front/assets/images/logo.png" alt="logo" width="144" height="45" />
+                            <img src="{{asset('front/assets/images/logo.png')}}" alt="logo" width="144" height="45" />
                         </a>
-                        <form method="get" action="#"
+                        <form method="get" action="{{url('product-lists')}}" 
                             class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
                             <div class="select-box">
                                 <select id="category" name="category">
-                                    <option value="">All Categories</option>
-                                    <option value="4">Fashion</option>
-                                    <option value="5">Furniture</option>
-                                    <option value="6">Shoes</option>
-                                    <option value="7">Sports</option>
-                                    <option value="8">Games</option>
-                                    <option value="9">Computers</option>
-                                    <option value="10">Electronics</option>
-                                    <option value="11">Kitchen</option>
-                                    <option value="12">Clothing</option>
+                                    <option value="" selected="" disabled="">All Categories</option>
+                                    @foreach($topCategories as $category)
+                                     <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <input type="text" class="form-control" name="search" id="search" placeholder="Search in..."
+                            <input type="text" class="form-control" name="search_product" id="search-product" placeholder="Search in..."
                                 required />
                             <button class="btn btn-search" type="submit"><i class="w-icon-search"></i>
                             </button>
@@ -139,7 +144,7 @@
                                 <a href="tel:#" class="phone-number font-weight-bolder ls-50">0(800)123-456</a>
                             </div>
                         </div>
-                        <a class="wishlist label-down link d-xs-show" href="wishlist.html">
+                        <a class="wishlist label-down link d-xs-show" href="{{url('/wishlists')}}">
                             <i class="w-icon-heart"></i>
                             <span class="wishlist-label d-lg-show">Wishlist</span>
                         </a>
@@ -348,7 +353,7 @@
                                                 <h4 class="menu-title">{{$brand->brand_name}}</h4>
                                                 <ul>
                                                   @foreach($brand->products as $product)
-                                                    <li><a href="{{url('/product-deatails/'.$product->id)}}">{{$product->product_name}}</a></li>
+                                                    <li><a href="{{url('/product-details/'.$product->id)}}">{{$product->product_name}}</a></li>
                                                   @endforeach
                                                 </ul>
                                             </li>
@@ -428,7 +433,7 @@
                                             <li><a href="faq.html">FAQs</a></li>
                                             <li><a href="error-404.html">Error 404</a></li>
                                             <li><a href="coming-soon.html">Coming Soon</a></li>
-                                            <li><a href="wishlist.html">Wishlist</a></li>
+                                            <li><a href="{{url('/wishlists')}}">Wishlist</a></li>
                                             <li><a href="{{url('/carts')}}">Cart</a></li>
                                             <li><a href="checkout.html">Checkout</a></li>
                                             <li><a href="my-account.html">My Account</a></li>
@@ -518,7 +523,7 @@
                         <div class="col-lg-4 col-sm-6">
                             <div class="widget widget-about">
                                 <a href="{{url('/')}}" class="logo-footer">
-                                    <img src="front/assets/images/logo_footer.png" alt="logo-footer" width="144"
+                                    <img src="{{asset('front/assets/images/logo_footer.png')}}" alt="logo-footer" width="144"
                                         height="45" />
                                 </a>
                                 <div class="widget-body">
@@ -559,7 +564,7 @@
                                     <li><a href="{{url('/carts')}}">View Cart</a></li>
                                     <li><a href="login.html">Sign In</a></li>
                                     <li><a href="#">Help</a></li>
-                                    <li><a href="wishlist.html">My Wishlist</a></li>
+                                    <li><a href="{{url('/wishlists')}}">My Wishlist</a></li>
                                     <li><a href="#">Privacy Policy</a></li>
                                 </ul>
                             </div>
@@ -935,7 +940,7 @@
                                 <li><a href="faq.html">FAQs</a></li>
                                 <li><a href="error-404.html">Error 404</a></li>
                                 <li><a href="coming-soon.html">Coming Soon</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
+                                <li><a href="{{url('/wishlists')}}">Wishlist</a></li>
                                 <li><a href="{{url('/carts')}}">Cart</a></li>
                                 <li><a href="checkout.html">Checkout</a></li>
                                 <li><a href="my-account.html">My Account</a></li>
@@ -1431,20 +1436,20 @@
     <!-- End of Quick view -->
 
     <!-- Plugin JS File -->
-    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="front/assets/vendor/jquery/jquery.min.js"></script>
-    <script src="front/assets/vendor/jquery.plugin/jquery.plugin.min.js"></script>
-    <script src="front/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script src="front/assets/vendor/zoom/jquery.zoom.js"></script>
-    <script src="front/assets/vendor/jquery.countdown/jquery.countdown.min.js"></script>
-    <script src="front/assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="front/assets/vendor/skrollr/skrollr.min.js"></script>
+    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="{{asset('front/assets/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('front/assets/vendor/jquery.plugin/jquery.plugin.min.js')}}"></script>
+    <script src="{{asset('front/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
+    <script src="{{asset('front/assets/vendor/zoom/jquery.zoom.js')}}"></script>
+    <script src="{{asset('front/assets/vendor/jquery.countdown/jquery.countdown.min.js')}}"></script>
+    <script src="{{asset('front/assets/vendor/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
+    <script src="{{asset('front/assets/vendor/skrollr/skrollr.min.js')}}"></script>
 
     <!-- Swiper JS -->
-    <script src="front/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="{{asset('front/assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
 
 
     <!-- Main JS -->
-    <script src="front/assets/js/main.min.js"></script>
+    <script src="{{asset('front/assets/js/main.min.js')}}"></script>
 
     <script src="{{asset('custom/toastr.js')}}"></script>
  
@@ -1478,6 +1483,93 @@
       })
     </script>
 </body>
+
+ <script>
+    $(document).ready(function(){
+
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           }
+       });
+
+        $(document).on('submit','#signupUser',function(e){
+            e.preventDefault();
+            let name_1 = $('#name_1').val();
+            let email_1 = $('#email_1').val();
+            let phone_1 = $('#phone_1').val();
+            let password_1 = $('#password_1').val();
+            let password_2 = $('#password_2').val();
+            // let redirectUrl = "{{url('/')}}/"+"user-dashboard";
+            let redirectUrl = "{{url('/')}}";
+            $.ajax({
+
+                url: "{{url('user-signup')}}",
+
+                    type:"POST", 
+
+                    data:{'name_1':name_1,'email_1':email_1,'phone_1':phone_1,'password_1':password_1,'password_2':password_2},
+                    dataType:"json",
+                    success:function(data) {
+                        if(data.status == true){
+                            $('#name_1').val('');
+                            $('#email_1').val('');
+                            $('#phone_1').val('');
+                            $('#password_1').val('');
+                            $('#password_2').val('');
+                            toastr.success(data.message);
+                            setTimeout(function() {
+                                window.location.href = redirectUrl;
+                            }, 1000);
+                        }else{
+                            toastr.error(data.message);
+                        }
+                        
+                },
+                                    
+            });
+        });
+
+        $(document).on('submit','#signinUser',function(e){
+            e.preventDefault();
+            let email_or_phone = $('#email_or_phone').val();
+            let password = $('#password').val();
+            // let redirectUrl = "{{url('/')}}/"+"user-dashboard";
+            let sessionGet = "{{Session::get('page')}}";
+            let redirectUrl;
+            if(sessionGet == 'checkout'){
+                redirectUrl = "{{url('/')}}/checkout";
+            }else{
+                redirectUrl = "{{url('/')}}";
+            };
+            $.ajax({
+
+                url: "{{url('user-signin')}}",
+
+                    type:"POST", 
+
+                    data:{'email_or_phone':email_or_phone,'password':password},
+                    dataType:"json",
+                    success:function(data) {
+                        if(data.status == true){
+                            $('#email_or_phone').val('');
+                            $('#password').val('');
+                            toastr.success(data.message);
+                            setTimeout(function() {
+                                window.location.href = redirectUrl;
+                            }, 1000);
+                        }else{
+                            toastr.error(data.message);
+                        }
+                        
+                },
+                                    
+            });
+        });
+
+    });
+ </script>
+
 
 
 <!-- Mirrored from portotheme.com/html/wolmart/{{url('/')}} by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Oct 2025 04:52:13 GMT -->
